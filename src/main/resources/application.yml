@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: common-api
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:sqlite:resource/db/common.db
+    driver-class-name: org.sqlite.JDBC
+
+file:
+  save-path: ./resource/file
+  max-size: 10M
+
+mybatis-plus:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+swagger:
+  enable: true
+server:
+  port: 8081
+
+logging:
+  level:
+    com.frame.kzou.business.mapper: debug
