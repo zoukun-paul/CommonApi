@@ -6,7 +6,7 @@ API
 | AP I| 状态 | 描述 |
 |---|---|---|
 |邮箱|<span style='color:green'><span style='color:green'>已完成</span></span>|stmp|
-|邮箱|<del>不考虑</del>|要收费，现<del>不考虑</del>|
+|短信|<del>不考虑</del>|要收费，现<del>不考虑</del>|
 |ip|<span style='color:green'>已完成</span>|ip定位、经纬度距离计算（待测试）|
 |中英文翻译|<span style='color:red'>待开发</span>||
 |在线聊天|<del>不考虑</del>||
