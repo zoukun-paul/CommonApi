@@ -17,8 +17,8 @@ API
 |加密|<span style='color:red'>待开发</span>||
 |字符图片|<span style='color:red'>待开发</span>||
 |代理池|<span style='color:red'>待开发</span>||
-|二维码生成器|<span style='color:red'>待开发</span>||
-|短链接|<span style='color:red'>待开发</span>||
+|二维码生成器|<span style='color:red'>待开发</span>|开发中|
+|短链接|<span style='color:red'>待开发</span>|开发中|
 
 ## 文件
     1. 按照功能上划分，总体上可以分为两种类型。

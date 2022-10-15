@@ -48,6 +48,9 @@ dependencies {
     // log
     implementation 'org.slf4j:slf4j-api:1.7.32'
     implementation 'ch.qos.logback:logback-classic:1.2.6'
+    // qrCode
+    implementation  'com.google.zxing:core:3.3.0'
+    implementation  'com.google.zxing:javase:3.3.0'
 }
 
 tasks.named('test') {
