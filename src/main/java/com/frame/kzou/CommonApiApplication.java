@@ -10,7 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @Slf4j
 @SpringBootApplication
-@MapperScan("com.frame.kzou.business.mapper")
+@MapperScan("com.frame.kzou.busine" +
+        "ss.mapper")
 public class CommonApiApplication {
 
     public static void main(String[] args) {

@@ -11,7 +11,7 @@ import java.util.concurrent.*;
  * @author: HP-zouKun
  * Date: 2022/10/11
  * Time: 17:35
- * Description:
+ * Description: 线程池配置
  */
 @Configuration
 public class ThreadPoolConfig {
