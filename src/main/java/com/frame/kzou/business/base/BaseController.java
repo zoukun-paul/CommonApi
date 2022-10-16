@@ -8,6 +8,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,7 +33,7 @@ public class BaseController {
 
     /**
      * 获取request对象
-     * @return
+     * @return HttpServletRequest
      */
     public HttpServletRequest getRequest() {
         return Optional.ofNullable(getRequestAttributes())
@@ -42,7 +44,7 @@ public class BaseController {
     /**
      * 获取响应对象
      *
-     * @return
+     * @return HttpServletResponse
      */
     public HttpServletResponse getResponse(){
         return Optional.ofNullable(getRequestAttributes())
@@ -53,7 +55,7 @@ public class BaseController {
     /**
      * 获取Session
      *
-     * @return
+     * @return HttpSession
      */
     public HttpSession getSession(){
         return Optional.ofNullable(getRequest())
@@ -81,20 +83,36 @@ public class BaseController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 导出文件
+     * @param file 目标文件
+     */
     public void exportFile(File file) {
         exportFile(file, null);
     }
 
+    /**
+     *  添加用户
+     * @param userId 用户ID
+     */
     public void setUser(String userId) {
         log.info("session[{}]绑定用户：{}", getSession().getId(), userId);
         getSession().setAttribute("userId", userId);
     }
 
+    /**
+     * 删除添加的用户（当前会话）
+     */
     public void removeUser() {
         log.info("session[{}]绑定用户", getSession().getId());
         getSession().removeAttribute("userId");
     }
 
+    /**
+     * 获取当前会话的用户
+     * @return 用户ID
+     */
     public String getBindUser() {
         Object userId = getSession().getAttribute("userId");
         log.info("session[{}]获取绑定用户：{}", getSession().getId(), userId);

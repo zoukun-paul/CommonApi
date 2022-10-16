@@ -1,5 +1,6 @@
 package com.frame.kzou.utils;
 
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 /**
@@ -22,10 +23,16 @@ public class ValidUtil {
     /**
      * 判断字符串是否为空（null + ""）
      * @param str   string
-     * @return
+     * @return  boolean
      */
     public static boolean isEmptyString(String str) {
         return str == null || str.length() == 0;
+    }
+
+    public static void isNotEmptyStringRun(String str, Consumer<String> notEmptyDo) {
+        if (!isEmptyString(str)) {
+            notEmptyDo.accept(str);
+        }
     }
 
     /**

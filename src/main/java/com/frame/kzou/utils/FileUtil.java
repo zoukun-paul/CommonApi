@@ -16,12 +16,12 @@ import java.util.UUID;
  */
 public class FileUtil {
 
+    private FileUtil(){}
 
     /**
      *
      * @param data  字节类容
      * @param file  存储到的文件
-     * @throws IOException
      */
     public static void saveFile(byte[] data, File file) throws IOException {
         try (FileOutputStream outputStream = new FileOutputStream(file)) {
@@ -69,4 +69,5 @@ public class FileUtil {
             file.mkdir();
         }
     }
+
 }

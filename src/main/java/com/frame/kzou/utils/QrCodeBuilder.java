@@ -3,6 +3,7 @@ package com.frame.kzou.utils;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
@@ -14,7 +15,7 @@ import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.security.InvalidParameterException;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -44,8 +45,9 @@ public  class QrCodeBuilder {
     /**
      * 其他字段
      */
-    private int qrColor = -1;
+    private Color qrColor = Color.decode("0x000001");
     private Image logoImg = null;
+    private Color bgColor = Color.WHITE;
 
     private void initQrCode()  {
         try {
@@ -66,9 +68,12 @@ public  class QrCodeBuilder {
         qrSize = size;
         qRContent = content;
         this.hints = hints;
-        hints.computeIfAbsent(EncodeHintType.ERROR_CORRECTION, k -> ErrorCorrectionLevel.H);
-        hints.computeIfAbsent(EncodeHintType.CHARACTER_SET, k -> "utf-8");
-        hints.computeIfAbsent(EncodeHintType.MARGIN, k -> 0);
+        // 二维码容错率 默认 high
+        hints.putIfAbsent(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+        // 字符集 默认utf-8
+        hints.putIfAbsent(EncodeHintType.CHARACTER_SET, "utf-8");
+        // 白边大小，取值范围 0~4 默认 0
+        hints.putIfAbsent(EncodeHintType.MARGIN, 0);
         initQrCode();
     }
 
@@ -77,7 +82,7 @@ public  class QrCodeBuilder {
      * @param size      二维码大小
      */
     public QrCodeBuilder(String content, int size) {
-        this(content, size, new HashMap<>());
+        this(content, size, new EnumMap<>(EncodeHintType.class));
     }
 
     /**
@@ -92,22 +97,21 @@ public  class QrCodeBuilder {
      * @param color 16进制表示的颜色
      * @return QrCodeBuilder
      */
-    public QrCodeBuilder setColor(int color) {
+    public QrCodeBuilder setColor(Color color) {
         this.qrColor = color;
-        int qrWidth = bitMatrix.getWidth();
-        int qrHeight = bitMatrix.getHeight();
-        // 定义空白的缓冲流图
-        qrImg = new BufferedImage(qrWidth, qrHeight, BufferedImage.TYPE_INT_RGB);
-        // 整改二维码的颜色
-        for (int i = 0; i < qrWidth; i++) {
-            for (int j = 0; j < qrHeight; j++) {
-                // 获取二维码上的每个点（bitMatrix.get => true: 黑色  false: 白色）
-                int rbg = bitMatrix.get(i, j) ? color : 0xFFFFFF;
-                qrImg.setRGB(i, j, rbg);
-            }
-        }
         return this;
     }
+
+    /**
+     * 设置二维码背景颜色
+     * @param bgColor   16进制表示的颜色
+     * @return  QrCodeBuilder
+     */
+    public QrCodeBuilder setBgColor(Color bgColor) {
+        this.bgColor = bgColor;
+        return this;
+    }
+
 
     /**
      * 给二维码设置Logo
@@ -121,12 +125,18 @@ public  class QrCodeBuilder {
         return this;
     }
 
-    /**
-     * 真正添加Logo的实现方法
-     */
-    private void addLogo() {
-        if (qrColor == -1) {
-            setColor(0x000);
+    public QrCodeBuilder setLogo(Image logo) {
+        return setLogo(logo, 3);
+    }
+
+    private void renderColor() {
+        MatrixToImageConfig matrixToImageConfig = new MatrixToImageConfig(qrColor.getRGB(), bgColor.getRGB());
+        qrImg = MatrixToImageWriter.toBufferedImage(bitMatrix, matrixToImageConfig);
+    }
+
+    private void renderLogo() {
+        if (logoImg == null) {
+            return;
         }
         if (logoImg.getWidth(null) * 2 > qrImg.getWidth() ||
                 logoImg.getHeight(null) * 2 > qrImg.getHeight()) {
@@ -150,14 +160,10 @@ public  class QrCodeBuilder {
         // 绘制圆角空心矩形（圆角化logo）
         graph.drawRoundRect(x, y, logoWidth, logoHeight, 18, 18);
         // 设置logo 的边框颜色
-        graph.setColor(Color.WHITE);
+        graph.setColor(this.bgColor);
         graph.drawRect(x,y,logoWidth,logoHeight);
         graph.dispose();
         logoImg.flush();
-    }
-
-    public QrCodeBuilder setLogo(Image logo) {
-        return setLogo(logo, 3);
     }
 
     /**
@@ -165,28 +171,28 @@ public  class QrCodeBuilder {
      * @return  BufferedImage
      */
     public BufferedImage build() {
-        // logo 想要单独处理（添加logo，必须在setColor之后）
-        if (logoImg!=null) {
-            addLogo();
-        }
+        // 先渲染QR颜色
+        renderColor();
+        // 再渲染Logo
+        renderLogo();
         bitMatrix.clear();
         return qrImg;
     }
 
     /**
      * 测试方法
-     * @param args
-     * @throws Exception
+     * @param args  String[]
+     * @throws Exception Exception
      */
     public static void main(String[] args) throws Exception {
 
         BufferedImage logo = ImageIO.read(new File("F:\\desktop\\OIP.jpg"));
 
-        BufferedImage qr = new QrCodeBuilder("https://github.com/zoukun-paul/CommonApi",200)
+        BufferedImage qr = new QrCodeBuilder("https://github.com/zoukun-paul/CommonApi", 200)
                 .setLogo(logo)
-                .setColor(0xc31)
+                .setColor(Color.GRAY)
                 .build();
-        Path path = FileSystems.getDefault().getPath("a61.png");
+        Path path = FileSystems.getDefault().getPath("a63.png");
         ImageIO.write(qr, "png", path.toFile());
     }
 }
