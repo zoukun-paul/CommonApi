@@ -17,7 +17,7 @@ API
 |加密|<span style='color:red'>待开发</span>||
 |字符图片|<span style='color:red'>待开发</span>||
 |代理池|<span style='color:red'>待开发</span>||
-|二维码生成器|<span style='color:red'>待开发</span>|开发中|
+|二维码生成器|已完成||
 |短链接|<span style='color:red'>待开发</span>|开发中|
 
 ## 文件
