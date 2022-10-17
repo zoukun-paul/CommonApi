@@ -56,7 +56,7 @@ public class ServiceConfig {
      *  基本访问入口
      * @return
      */
-//    @Bean(name = "baseUrl")
+    @Bean(name = "baseUrl")
     public String baseUrl() {
         String host = "";
         try {
