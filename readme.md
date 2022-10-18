@@ -16,9 +16,9 @@ API
 |编码、解码、转码|<span style='color:red'>待开发</span>|base64、unicode...|
 |加密|<span style='color:red'>待开发</span>||
 |字符图片|<span style='color:red'>待开发</span>||
-|代理池|<span style='color:red'>待开发</span>||
+|代理池|<span style='color:red'>待开发</span>|https://cuiqingcai.com/7048.html|
 |二维码生成器|已完成||
-|短链接|<span style='color:red'>待开发</span>|开发中|
+|短链接|已完成|已完成|
 
 ## 文件
     1. 按照功能上划分，总体上可以分为两种类型。

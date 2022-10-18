@@ -30,6 +30,11 @@ public class ServiceConfig {
     @Value("${ip.region-db-path:ip2region.xdb}")
     private String ipRegionDbPath;
 
+    /**
+     * 获取数据索引
+     * @return  byte[]
+     * @throws IOException  e
+     */
     @Bean
     public byte[] getIpRegionVIndex() throws IOException {
         byte[] res = null;
@@ -41,6 +46,11 @@ public class ServiceConfig {
         return res;
     }
 
+    /**
+     * Ip 查询器
+     * @param regionVIndex  index data
+     * @return Searcher
+     */
     @Bean
     public Searcher ipSearcher(byte[] regionVIndex) {
         try {
@@ -69,4 +79,5 @@ public class ServiceConfig {
         String contextPath = servletContext == null ? "" : servletContext.getContextPath();
         return "http://" + host + ":" + port + contextPath;
     }
+
 }

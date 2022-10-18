@@ -5,6 +5,9 @@ import com.frame.kzou.enums.DateFormatEnum;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 /**
@@ -37,6 +40,7 @@ public class DateUtil {
         return format.format(date);
     }
 
+
     /**
      * string -> date
      * @param dateFormat    指定格式类型
@@ -54,6 +58,10 @@ public class DateUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String getNowFormat(DateFormatEnum dateFormat) {
+        return format(dateFormat, getNow());
     }
 
     /**
@@ -78,4 +86,8 @@ public class DateUtil {
         return getDistance(date, getNow());
     }
 
+    public static long getDistanceToNow(LocalDateTime date) {
+        LocalDateTime now = LocalDateTime.now();
+        return Duration.between(LocalDateTime.now(), date).toMillis();
+    }
 }
