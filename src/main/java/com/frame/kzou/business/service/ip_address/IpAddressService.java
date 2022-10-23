@@ -1,4 +1,4 @@
-package com.frame.kzou.business.service.ipAddress;
+package com.frame.kzou.business.service.ip_address;
 
 import com.frame.kzou.business.vo.ip.GeoAddress;
 import com.frame.kzou.business.vo.ip.IpAddressRespVo;

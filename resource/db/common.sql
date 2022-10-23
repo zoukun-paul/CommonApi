@@ -13,7 +13,6 @@ create table user_file
     update_time    DATETIME
 );
 
-
 create table share_file
 (
     id          INTEGER   primary key autoincrement,
@@ -32,4 +31,19 @@ create table short_link(
        surl          char (30) not  null ,
        click_times   INTEGER   default 0,
        create_time   DATETIME
+)
+
+
+create table proxy_ip(
+     id  INTEGER primary key autoincrement,
+     ip  char (15) not null ,
+     port INTEGER not null ,
+     life INTEGER not null ,
+     type INTEGER default  0, --0.未知 1.普匿 2.透明 3.高匿
+     source char(100) not null ,-- 来源平台
+     position char(100)  ,      ---地理位置
+     protocol INTEGER default 1,   ---协议 （1.http\2.https）
+     check_times INTEGER  default 0,
+     creat_time DATETIME,
+     check_time DATETIME
 )

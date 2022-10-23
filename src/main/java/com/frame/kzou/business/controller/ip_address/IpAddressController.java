@@ -1,5 +1,5 @@
 package com.frame.kzou.business.controller.ip_address;
-import com.frame.kzou.business.service.ipAddress.IpAddressService;
+import com.frame.kzou.business.service.ip_address.IpAddressService;
 import com.frame.kzou.business.vo.ip.GeoAddressPair;
 import com.frame.kzou.business.vo.ip.IpAddressRespVo;
 import com.frame.kzou.common.ResultResponse;

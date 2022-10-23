@@ -2,7 +2,6 @@ package com.frame.kzou.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import java.util.concurrent.*;
 
 /**
@@ -19,11 +18,11 @@ public class ThreadPoolConfig {
     @Bean
     public ThreadPoolExecutor threadPoolExecutor() {
         return new ThreadPoolExecutor(
-                2,
+                6,
                 12,
                 3,
                 TimeUnit.SECONDS,
-                new ArrayBlockingQueue<>(36));
+                new ArrayBlockingQueue<>(128));
     }
 
     @Bean

@@ -53,6 +53,12 @@ dependencies {
     implementation  'com.google.zxing:javase:3.3.0'
     // aop
     implementation 'org.springframework:spring-aspects'
+    // network
+//    implementation 'org.apache.httpcomponents.client5:httpclient5:5.1.3'
+    implementation 'org.apache.httpcomponents:httpasyncclient:4.1.4'
+    implementation 'org.apache.httpcomponents:httpcore-nio:4.4.10'
+    // xpath parse (jsoup)
+    implementation 'org.jsoup:jsoup:1.14.3'
 
 }
 

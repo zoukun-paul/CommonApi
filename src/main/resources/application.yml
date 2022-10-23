@@ -19,8 +19,12 @@ mybatis-plus:
 
 swagger:
   enable: true
+
 server:
   port: 8081
+  # 爬虫服务开关
+  crawl:
+    enable: false
 
 logging:
   level:
